@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="{$LANG['install']['html_lang']}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{$LANG['install']['installation']}</title>
+    <!--Select2-->
+    <link href="{loadcss select2.min.css}" rel="stylesheet" type="text/css" />
+    <!--Main-Style-->
+    <link href="{loadcss common.css}" rel="stylesheet" type="text/css" />
+    <link href="./favicon.ico" rel="shortcut icon" />
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">{$LANG['install']['installation']}</h1>
+        <div id="mainwrapper">
+            <header class="row mb-4 text-center col-4 col-sm-2 m-auto">
+                <img id="logo-img" src="{static logo.png}" alt="logo" class="img-fluid" />
+            </header>
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 id="form-title" class="card-title">{$LANG['database']['database']}</h4>
+                            <!-- Database Form -->
+                            <form id="install" method="post" class="needs-validation" novalidate>
+                                <div class="mb-3">
+                                    <label for="db_host" class="form-label">{$LANG['database']['db_host']}</label>
+                                    <input type="text" class="form-control" name="db_host" id="db_host" value="127.0.0.1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="db_name" class="form-label">{$LANG['database']['db_name']}</label>
+                                    <input type="text" class="form-control" name="db_name" id="db_name" value="demo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="db_port" class="form-label">{$LANG['database']['db_port']}</label>
+                                    <input type="text" class="form-control" name="db_port" id="db_port" value="3306" placeholder="3306" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="db_user" class="form-label">{$LANG['database']['db_user']}</label>
+                                    <input type="text" class="form-control" name="db_user" id="db_user" value="root" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="db_password" class="form-label">{$LANG['database']['db_password']}</label>
+                                    <input type="text" class="form-control" name="db_password" id="db_password" value="root" required>
+                                </div>
+                                <div class="mb-4">
+                                    <!--//Language Selector//-->
+                                    <div class="mb-2 unselectable">
+                                        <div class="d-block">
+                                            <span class="lang-label">{$LANG['install']['language']}: </span>
+                                            <select class="select2 lang-select" name="lang">
+                                                <!--{loop $SYSTEM['lang_list'] $lang_key $lang_value}-->
+                                                <option value="{$lang_key}">{$lang_value}</option>
+                                                <!--{/loop}-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h4 class="card-title mt-4">{$LANG['install']['admin']}</h4>
+                                <!-- Display error messages here if any -->
+                                <div id="display"></div>
+                                <div class="mb-3">
+                                    <label for="admin" class="form-label">{$LANG['install']['username']}</label>
+                                    <input type="text" class="form-control" name="admin_username" id="admin" placeholder="Username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="admin_psw" class="form-label">{$LANG['install']['password']}</label>
+                                    <input type="password" class="form-control" name="admin_password" id="admin_psw" placeholder="Password" required autocomplete="off">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="admin_psw_confirm" class="form-label">{$LANG['install']['password_confirm']}</label>
+                                    <input type="password" class="form-control" name="admin_psw_confirm" id="admin_psw_confirm" placeholder="Confirm Password" required autocomplete="off">
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button id="submit" type="submit" name="submit" class="btn btn-primary">{$LANG['install']['install_next']}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="my-4 text-center">
+                <div class="mb-2">
+                    <a href="https://github.com/carry0987/" title="carry0987 GitHub" class="link-secondary" target="_blank" rel="noopener">
+                        <img src="{static github.svg}" alt="GitHub" width="30">
+                    </a>
+                </div>
+                <p>Made By <a class="link-primary fw-bold link-underline link-underline-opacity-0" href="https://github.com/carry0987/" target="_blank" rel="noopener">carry0987</a></p>
+                <p><a class="link-primary link-underline link-underline-opacity-0" href="https://github.com/carry0987/PHP-Install-Page" target="_blank" rel="noopener">PHP-Install-Page</a> {$version}</p>
+            </footer>
+        </div>
+    </div>
+    <!--//Script//-->
+    <!--jQuery-->
+    <script src="{loadjs ../../plugins/jquery/jquery.min.js}"></script>
+    <!--Select2-->
+    <script src="{loadjs ../../plugins/select2/js/select2.min.js}"></script>
+    <!--SweetAlert2-->
+    <script src="{loadjs ../../plugins/sweetalert2/sweetalert2.min.js}"></script>
+    <link href="{loadcss ../../plugins/sweetalert2/sweetalert2.min.css}" rel="stylesheet" type="text/css" />
+    <!--Utils-->
+    <script src="{loadjs ../../plugins/@carry0987/utils-full/utils-full.min.js}"></script>
+    <!--Main-Script-->
+    <script src="{loadjs install.min.js}"></script>
+    <script type="text/javascript">
+    $(function() {
+        let installHelper = new InstallHelper();
+        installHelper.init();
+    });
+    </script>
+    <!--Language-Selector-->
+    <script type="text/javascript">
+    $(function() {
+        $('.select2.lang-select').select2({
+            minimumResultsForSearch: Infinity,
+            width: 'auto'
+        });
+        $('.select2.lang-select').on('select2:select', (e) => {
+            $.ajax({
+                url: 'api.php',
+                data: {request: 'set_language', lang: e.target.value},
+                dataType: 'json',
+                type: 'POST',
+                success: (result) => {
+                    if (result === true) {
+                        location.reload();
+                    }
+                }
+            });
+        });
+        $('.select2.lang-select').val(`{$SYSTEM['system_lang']}`).trigger('change');
+    });
+    </script>
+</body>
+</html>
